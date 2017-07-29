@@ -1018,12 +1018,13 @@ void l_order(void)
 	print1("Your wounds are treated by a medic. Lääkintämies parantaa vammasi.");
       cleanse(0);
       Player.hp = Player.maxhp;
+      dataprint(); // This is the normal place of the bugfix. Tämä on bugikorjauksen normaali paikka.
       if ( Player.food <= 40 )
       {
         Player.food = 40;
         print2("You get a hot meal from the refectory. Saat kuuman aterian kanttiinista.");
       }
-      dataprint();
+      dataprint();  // This is the bugfix. Tämä on bugikorjaus. Se on eri rivillä kuin yleensä.
       morewait();
       clearmsg();
       if (Player.rank[ORDER]==PALADIN) {
