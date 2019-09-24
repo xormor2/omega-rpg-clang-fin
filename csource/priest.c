@@ -140,8 +140,8 @@ int check_sacrilege(int deity)
 	sacrilege = FALSE;
       }
       else {
-	print2("You are struck by a thunderbolt!");
-	p_damage(Player.level*5,UNSTOPPABLE,"Ukko Ylijumala's wrath");
+	print2("You are struck by a thunderbolt! Sinuun iskee ukkonen!");
+	p_damage(Player.level*5,UNSTOPPABLE,"Ukko Ylijumalan raivo, jumalannuoli.");
 	if (Player.hp > 0) {
 	  morewait();
 	  print2("The bolt warps your feeble frame....");
