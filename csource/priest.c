@@ -1,4 +1,4 @@
-/* omega copyright (C) by Laurence Raphael Brothers, 1987,1988,1989 */
+﻿/* omega copyright (C) by Laurence Raphael Brothers, 1987,1988,1989 */
 /* priest.c */
 /* functions for clerics. */
 
@@ -18,7 +18,7 @@ void l_altar(void)
       print1("Tässä primitiivisessä alttarissa ei ole merkintöjä.");
       break;
     case ODIN:
-      print1("Tähän graniittialttariin on kaiverrettu kantele.");
+      print1("Tähän graniittialttariin on kaiverrettu vasara.");
       break;
     case SET:
       print1("Tähän hiekkakivialttariin on kaiverrettu salama.");
@@ -133,7 +133,7 @@ int check_sacrilege(int deity)
     Player.maxpow--;
     switch(Player.patron) {
     case ODIN:
-      print1("Väinämöinen notices your lack of faith! ");
+      print1("Ukko Ylijumala notices your lack of faith! ");
       morewait();
       if (deity == ATHENA) {
 	print2("However, Mielikki intercedes on your behalf.");
@@ -141,7 +141,7 @@ int check_sacrilege(int deity)
       }
       else {
 	print2("You are struck by a thunderbolt!");
-	p_damage(Player.level*5,UNSTOPPABLE,"Väinämöinen's wrath");
+	p_damage(Player.level*5,UNSTOPPABLE,"Ukko Ylijumala's wrath");
 	if (Player.hp > 0) {
 	  morewait();
 	  print2("The bolt warps your feeble frame....");
@@ -202,7 +202,7 @@ int check_sacrilege(int deity)
       print1("Mielikki notices your lack of faith! ");
       morewait();
       if (deity == ODIN) {
-	print2("But lets you off this time since Väinämöinen is also Lawful.");
+	print2("But lets you off this time since Ukko Ylijumala is also Lawful.");
 	sacrilege = FALSE;
       }
       else {
@@ -255,7 +255,7 @@ int increase_priest_rank(int deity)
     break;
   case ODIN:
     if (Player.alignment > 0) {
-      print1("Väinämöinen hears your prayer! Väinämöinen kuulee rukouksesi!");
+      print1("Ukko Ylijumala hears your prayer! Ukko Ylijumala kuulee rukouksesi!");
       print2(Priest[ODIN]);
       nprint2(" henkilökohtaisesti siunaa sinut.");
       nprint2(" Olet nyt Väinämöisen maallikkopalvoja.");
@@ -266,7 +266,7 @@ int increase_priest_rank(int deity)
       /* morewait(); */
       learnclericalspells(ODIN,LAY);
     }
-    else print1("Väinämöinen jättää sinut huomiotta.");
+    else print1("Ukko Ylijumala jättää sinut huomiotta.");
     break;
   case SET:
     if (Player.alignment < 0) {
@@ -462,7 +462,7 @@ void hp_req_print(void)
     break;
   case SET:
     nprint1(Priest[ODIN]);
-    print2("kuka löytyy Väinämöisen päätemppelistä.");
+    print2("kuka löytyy Ukko Ylijumalan päätemppelistä.");
     break;
   case ATHENA:
     nprint1(Priest[HECATE]);
