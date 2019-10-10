@@ -258,7 +258,7 @@ int increase_priest_rank(int deity)
       print1("Ukko Ylijumala hears your prayer! Ukko Ylijumala kuulee rukouksesi!");
       print2(Priest[ODIN]);
       nprint2(" henkilökohtaisesti siunaa sinut.");
-      nprint2(" Olet nyt Väinämöisen maallikkopalvoja.");
+      nprint2(" Olet nyt Ukko Ylijumalan maallikkopalvoja.");
       Player.patron = ODIN;
       Player.rank[PRIESTHOOD] = LAY;
       Player.guildxp[PRIESTHOOD] = 1;
