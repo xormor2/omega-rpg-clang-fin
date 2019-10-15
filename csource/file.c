@@ -153,6 +153,8 @@ void showmotd(void)
 
 void lock_score_file(void)
 {
+/*		//I commented out the whole functionality (all of the actions) of this function lock_score_file()
+		//because I want the high score file to be written also for the "created" self-named characters. --L.K.F. 2019
 #ifndef MSDOS
   int lock;
   int thispid;
@@ -166,7 +168,7 @@ void lock_score_file(void)
 
   do
     {
-      /* create lock file */
+      // create lock file 
       lock = open(Str1, O_WRONLY | O_CREAT | O_EXCL, 0600);
       if (lock < 0 && errno == EEXIST)
         {
@@ -181,10 +183,10 @@ void lock_score_file(void)
             }
 
           attempts++;
-          /* assume that lock file has been abandoned */
+          // assume that lock file has been abandoned
           if (attempts > 10)
             {
-              /* so we unlink it ourselves - ugly...	*/
+              // so we unlink it ourselves - ugly...
               unlink(Str1);
             }
           else
@@ -192,7 +194,7 @@ void lock_score_file(void)
         }
       else if (lock < 0)
         {
-          /* oops - something very wrong */
+          // oops - something very wrong
           return;
         }
     }
@@ -202,6 +204,7 @@ void lock_score_file(void)
   write(lock, Str1, strlen(Str1));
   close(lock);
 #endif
+*/		//End of comment, so lock_score_file just gets called, enters and returns. --L.K.F. 2019
 }
 
 void unlock_score_file(void)
