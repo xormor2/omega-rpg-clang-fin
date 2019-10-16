@@ -303,9 +303,9 @@ void save_hiscore_npc(int npc)
   char buffer[80];
   int i;
 
-  if (gamestatusp(CHEATED))
-      return;
-  //lock_score_file();		//I am trying to make high score get written for self-named characters, too! -L.K.F. 2019
+  //if (gamestatusp(CHEATED))
+  //    return;
+  unlock_score_file();		//I am trying to make high score get written for self-named characters, too! -L.K.F. 2019
   strcpy(Str1,Omegavar);
   strcat(Str1,"omega.hi");
   infile = checkfopen(Str1,"rb");
@@ -317,7 +317,7 @@ void save_hiscore_npc(int npc)
 #endif
   outfile = checkfopen(Str2,"wb");
   for (i = 0; i < 17; i++) {
-    if (npc == i) {
+    if (npc == i || npc == 0) {
       switch (i) {
 	case 0:
 	  fprintf(outfile,"%s\n%s\n%ld %d %d\n",Hiscorer, Hidescrip, Hiscore,
@@ -398,7 +398,7 @@ void checkhigh(char *descrip, int behavior)
 
   if (FixedPoints > 0) points = FixedPoints;
   else points = calc_points();
-  if (!gamestatusp(CHEATED)) {
+  //if (!gamestatusp(CHEATED)) {
     if (Hiscore < points) {
       strcpy(Hiscorer, Player.name);
       strcpy(Hidescrip, descrip);
@@ -408,7 +408,7 @@ void checkhigh(char *descrip, int behavior)
       save_hiscore_npc(0);
       mprint("Yow! A new high score!");
       morewait();
-    }
+  //}
     if (Player.alignment < Chaos) {
       strcpy(Chaoslord, Player.name);
       Chaoslordlevel = Player.level;
