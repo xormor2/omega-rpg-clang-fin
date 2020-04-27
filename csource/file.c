@@ -305,7 +305,7 @@ void save_hiscore_npc(int npc)
 
   if (gamestatusp(CHEATED))
       return;
-  lock_score_file();
+ // lock_score_file();
   strcpy(Str1,Omegavar);
   strcat(Str1,"omega.hi");
   infile = checkfopen(Str1,"rb");
