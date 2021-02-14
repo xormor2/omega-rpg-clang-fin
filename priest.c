@@ -258,6 +258,7 @@ int increase_priest_rank(int deity)
       print1("Ukko Ylijumala kuulee rukouksesi!");
       print2(Priest[ODIN]);
       nprint2(" henkilökohtaisesti siunaa sinut.");
+      morewait();
       nprint2(" Olet nyt Ukon maallikkopalvoja.");
       Player.patron = ODIN;
       Player.rank[PRIESTHOOD] = LAY;
