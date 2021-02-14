@@ -271,10 +271,11 @@ int increase_priest_rank(int deity)
     break;
   case SET:
     if (Player.alignment < 0) {
-      print1("Set hears your prayer!");
+      print1("Paholainen kuulee rukouksesi!");
       print2(Priest[SET]);
-      nprint2(" personally blesses you. ");
-      nprint2(" You are now a lay devotee of Set.");
+      nprint2(" henkilökohtaisesti siunaa sinut. ");
+      morewait();
+      nprint2(" Olet nyt Paholaisen maallikkopalvoja.");
       Player.patron = SET;
       Player.rank[PRIESTHOOD] = LAY;
       Player.guildxp[PRIESTHOOD] = 1;
@@ -282,7 +283,7 @@ int increase_priest_rank(int deity)
       /* morewait(); */
       learnclericalspells(SET,LAY);
     }
-    else print1("Set ignores you.");
+    else print1("Paholainen jättää sinut huomiotta.");
     break;
   case ATHENA:
     if (Player.alignment > 0) {
@@ -400,10 +401,10 @@ void answer_prayer(void)
 {
   clearmsg();
   switch(random_range(12)) {
-  case 0: print1("You have a revelation!"); break;
-  case 1: print1("You feel pious."); break;
-  case 2: print1("A feeling of sanctity comes over you."); break;
-  default: print1("Nothing unusual seems to happen."); break;
+  case 0: print1("Koet ilmestyksen!"); break;
+  case 1: print1("Tunnet itsesi uskovaiseksi."); break;
+  case 2: print1("Pyhyyden tunne tulee yllesi."); break;
+  default: print1("Mitään erikoista ei tunnu tapahtuvan."); break;
   }
 }
 
