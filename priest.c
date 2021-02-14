@@ -1,4 +1,4 @@
-﻿/* omega copyright (C) by Laurence Raphael Brothers, 1987,1988,1989 */
+/* omega copyright (C) by Laurence Raphael Brothers, 1987,1988,1989 */
 /* priest.c */
 /* functions for clerics. */
 
@@ -15,28 +15,28 @@ void l_altar(void)
 
   switch(deity) {
     default:
-      print1("Tässä primitiivisessä alttarissa ei ole merkintöjä.");
+      print1("Tässä karkeassa alttarissa ei ole merkintöjä.");
       break;
     case ODIN:
-      print1("Tähän graniittialttariin on kaiverrettu vasara.");
+      print1("Tähän graniittialttariin on kaiverrettu Ukonvasara.");
       break;
     case SET:
-      print1("Tähän hiekkakivialttariin on kaiverrettu salama.");
+      print1("This sandstone altar has a black hand drawn on it.");
       break;
     case HECATE:
-      print1("Tähän hopeiseen alttariin on kaiverrettu Kokkolintu.");
+      print1("This silver altar is inlaid with a black crescent moon.");
       break;
     case ATHENA:
-      print1("Tähän kultaiseen alttariin on kaiverrettu kukkanen.");
+      print1("This golden altar is inscribed with an owl.");
       break;
     case DESTINY:
-      print1("Tämä kristallialttari on omegan muotoon kaiverrettu.");
+      print1("This crystal altar is in the form of an omega.");
       break;
     case DRUID:
-      print1("Tähän tammialttariin on koristeellisesti kaiverrettu lehtiä.");
+      print1("This oaken altar is ornately engraved with leaves.");
       break;
   }
-  print2("Palvotko tällä alttarilla? [yn] ");
+  print2("Worship at this altar? [yn] ");
   if (ynq2() == 'y') {
 
 #ifdef INCLUDE_MONKS
@@ -133,15 +133,15 @@ int check_sacrilege(int deity)
     Player.maxpow--;
     switch(Player.patron) {
     case ODIN:
-      print1("Ukko Ylijumala notices your lack of faith! ");
+      print1("Odin notices your lack of faith! ");
       morewait();
       if (deity == ATHENA) {
-	print2("However, Mielikki intercedes on your behalf.");
+	print2("However, Athena intercedes on your behalf.");
 	sacrilege = FALSE;
       }
       else {
-	print2("You are struck by a thunderbolt! Sinuun iskee ukkonen!");
-	p_damage(Player.level*5,UNSTOPPABLE,"Ukko Ylijumalan raivo, jumalannuoli.");
+	print2("You are struck by a thunderbolt!");
+	p_damage(Player.level*5,UNSTOPPABLE,"Odin's wrath");
 	if (Player.hp > 0) {
 	  morewait();
 	  print2("The bolt warps your feeble frame....");
@@ -154,16 +154,16 @@ int check_sacrilege(int deity)
       morewait();
       break;
     case SET:
-      print1("Perkele huomaa uskottomuutesi! ");
+      print1("Set notices your lack of faith! ");
       morewait();
       if (deity == HECATE) {
-	print1("Mutta koska rukoilet ystävällistä jumaluutta,");
-	print2("Perkele päättää olla rankaisematta sinua.");
+	print1("But since you pray to a friendly deity,");
+	print2("Set decides not to punish you.");
 	sacrilege = FALSE;
       }
       else {
 	print2("You are blasted by a shaft of black fire!");
-	p_damage(Player.level*5,UNSTOPPABLE,"Perkele's anger");
+	p_damage(Player.level*5,UNSTOPPABLE,"Set's anger");
 	if (Player.hp > 0) {
 	  morewait();
 	  print1("You are wreathed in clouds of smoke.");
@@ -172,22 +172,22 @@ int check_sacrilege(int deity)
 		(Player.possessions[i]->blessing > -1))
 	      conform_lost_object(Player.possessions[i]);
 	  morewait();
-	  print2("You feel Perkele's Black Hand on your heart....");
+	  print2("You feel Set's Black Hand on your heart....");
 	  Player.con = Player.maxcon = Player.maxcon / 4;
 	}
       }
       morewait();
       break;
     case HECATE:
-      print1("Louhi notices your lack of faith! ");
+      print1("Hecate notices your lack of faith! ");
       morewait();
       if (deity == SET) {
-	print1("But ignores the affront since she likes Perkele.");
+	print1("But ignores the affront since she likes Set.");
 	sacrilege = FALSE;
       }
       else {
 	print1("You are zapped by dark moonbeams!");
-	p_damage(Player.level*5,UNSTOPPABLE,"Louhi's malice");
+	p_damage(Player.level*5,UNSTOPPABLE,"Hecate's malice");
 	if (Player.hp > 0) {
 	  print2("The beams leach you of magical power!");
 	  Player.maxpow = Player.maxpow/5;
@@ -199,10 +199,10 @@ int check_sacrilege(int deity)
       morewait();
       break;
     case ATHENA:
-      print1("Mielikki notices your lack of faith! ");
+      print1("Athena notices your lack of faith! ");
       morewait();
       if (deity == ODIN) {
-	print2("But lets you off this time since Ukko Ylijumala is also Lawful.");
+	print2("But lets you off this time since Odin is also Lawful.");
 	sacrilege = FALSE;
       }
       else {
@@ -245,20 +245,21 @@ int increase_priest_rank(int deity)
 {
   if (Player.rank[PRIESTHOOD] == 0) switch(deity) {
   default:
-    print2("Jokin nimetön jumala siunaa sinut...");
+    print2("Some nameless god blesses you....");
     Player.hp = max(Player.hp, Player.maxhp);
     morewait();
-    print2("Alttari hajoaa pölyksi ja lentää pois.");
+    print2("The altar crumbles to dust and blows away.");
     Level->site[Player.x][Player.y].locchar = FLOOR;
     Level->site[Player.x][Player.y].p_locf = L_NO_OP;
     lset(Player.x, Player.y, CHANGED);
     break;
   case ODIN:
     if (Player.alignment > 0) {
-      print1("Ukko Ylijumala hears your prayer! Ukko Ylijumala kuulee rukouksesi!");
+      print1("Ukko Ylijumala kuulee rukouksesi!");
       print2(Priest[ODIN]);
       nprint2(" henkilökohtaisesti siunaa sinut.");
-      nprint2(" Olet nyt Ukko Ylijumalan maallikkopalvoja.");
+      morewait();
+      nprint2(" Olet nyt Ukon maallikkopalvoja.");
       Player.patron = ODIN;
       Player.rank[PRIESTHOOD] = LAY;
       Player.guildxp[PRIESTHOOD] = 1;
@@ -266,14 +267,14 @@ int increase_priest_rank(int deity)
       /* morewait(); */
       learnclericalspells(ODIN,LAY);
     }
-    else print1("Ukko Ylijumala jättää sinut huomiotta.");
+    else print1("Ukko jättää sinut huomiotta.");
     break;
   case SET:
     if (Player.alignment < 0) {
-      print1("Perkele hears your prayer!");
+      print1("Set hears your prayer!");
       print2(Priest[SET]);
       nprint2(" personally blesses you. ");
-      nprint2(" You are now a lay devotee of Perkele.");
+      nprint2(" You are now a lay devotee of Set.");
       Player.patron = SET;
       Player.rank[PRIESTHOOD] = LAY;
       Player.guildxp[PRIESTHOOD] = 1;
@@ -281,14 +282,14 @@ int increase_priest_rank(int deity)
       /* morewait(); */
       learnclericalspells(SET,LAY);
     }
-    else print1("Perkele jättää sinut huomiotta.");
+    else print1("Set ignores you.");
     break;
   case ATHENA:
     if (Player.alignment > 0) {
-      print1("Mielikki kuulee rukouksesi!");
+      print1("Athena hears your prayer!");
       print2(Priest[ATHENA]);
-      nprint2(" henkilökohtaisesti siunaa sinut.");
-      nprint2(" Olet nyt Mielikin maallikkopalvoja.");
+      nprint2(" personally blesses you.");
+      nprint2(" You are now a lay devotee of Athena.");
       Player.patron = ATHENA;
       Player.rank[PRIESTHOOD] = LAY;
       Player.guildxp[PRIESTHOOD] = 1;
@@ -296,14 +297,14 @@ int increase_priest_rank(int deity)
       /* morewait(); */
       learnclericalspells(ATHENA,LAY);
     }
-    else print1("Mielikki jättää sinut huomiotta.");
+    else print1("Athena ignores you.");
     break;
   case HECATE:
     if (Player.alignment < 0) {
-      print1("Louhi kuulee rukouksesi!");
+      print1("Hecate hears your prayer!");
       print2(Priest[HECATE]);
-      nprint2(" henkilökohtaisesti siunaa sinut.");
-      nprint2(" Olet nyt Louhen maallikkopalvoja.");
+      nprint2(" personally blesses you.");
+      nprint2(" You are now a lay devotee of Hecate.");
       Player.patron = HECATE;
       Player.rank[PRIESTHOOD] = LAY;
       Player.guildxp[PRIESTHOOD] = 1;
@@ -311,13 +312,13 @@ int increase_priest_rank(int deity)
       /* morewait(); */
       learnclericalspells(HECATE,LAY);
     }
-    else print1("Louhi jättää sinut huomiotta.");
+    else print1("Hecate ignores you.");
     break;
   case DRUID:
     if (abs(Player.alignment) < 10) {
       print1(Priest[DRUID]);
-      nprint1(" henkilökohtaisesti sinuaa sinut.");
-      print2("Olet nyt Tietäjien maallikkojäsen.");
+      nprint1(" personally blesses you.");
+      print2("You are now a lay devotee of the Druids.");
       Player.patron = DRUID;
       Player.rank[PRIESTHOOD] = LAY;
       Player.guildxp[PRIESTHOOD] = 1;
@@ -458,26 +459,26 @@ void hp_req_print(void)
   switch(Player.patron) {
   case ODIN:
     nprint1(Priest[SET]);
-    print2("kuka löytyy Perkeleen päätemppelistä.");
+    print2("who may be found in the main Temple of Set.");
     break;
   case SET:
     nprint1(Priest[ODIN]);
-    print2("kuka löytyy Ukko Ylijumalan päätemppelistä.");
+    print2("who may be found in the main Temple of Odin.");
     break;
   case ATHENA:
     nprint1(Priest[HECATE]);
-    print2("kuka löytyy Louhin päätemppelistä.");
+    print2("who may be found in the main Temple of Hecate.");
     break;
   case HECATE:
     nprint1(Priest[ATHENA]);
-    print2("kuka löytyy Mielikin päätemppelistä.");
+    print2("who may be found in the main Temple of Athena.");
     break;
   case DRUID:
-    print2("kuka tahansa oikein suuntautunut pappi temppeleistään.");
+    print2("any of the aligned priests who may be found in their main Temples.");
     break;
   case DESTINY:
     nprint1(Priest[DESTINY]);
-    print2("kuka löytyy Kohtalon päätemppelistä.");
+    print2("who may be found in the main Temple of Destiny.");
     break;
   }
 }
