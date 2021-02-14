@@ -1012,8 +1012,9 @@ void l_order(void)
       if (!gamestatusp(MOUNTED)) {
 	print2("You are given a new steed.");
 	setgamestatus(MOUNTED);
-      }
       morewait();
+      }
+      //morewait(); //Commented out by LKF 2021
       clearmsg();
       if ((Player.hp < Player.maxhp) || (Player.status[DISEASED]) ||
 	(Player.status[POISONED]))
