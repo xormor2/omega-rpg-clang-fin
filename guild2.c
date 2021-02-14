@@ -930,7 +930,7 @@ void l_order(void)
 {
   pob newitem;
   pml ml;
-  print1("Temppeliritarien järjestön päämaja.");
+  print1("The Headquarters of the Order of Paladins.");
   morewait();
   if ((Player.rank[ORDER]==PALADIN) &&
       (Player.level > Justiciarlevel) &&
@@ -984,15 +984,15 @@ void l_order(void)
     else if (Player.rank[LEGION] != 0) 
       print1("Go back to your barracks, mercenary!");
     else {
-      print1("Dost thou wish to join our Order? Haluatko liittyä Järjestöömme? [yn] ");
+      print1("Dost thou wish to join our Order? [yn] ");
       if (ynq1()=='y') {
 	print1("Justiciar ");
 	nprint1(Justiciar);
-	nprint1(" welcomes you to the Order. Hän toivottaa sinut Järjestöön.");
-	print2("'Mayest thou always follow the sublime path of Law. Seuraa aina lain polkuja.'");
+	nprint1(" welcomes you to the Order.");
+	print2("'Mayest thou always follow the sublime path of Law.'");
 	morewait();
-	print1("You are now a Gallant in the Order. Nyt olet Järjestön ritari.");
-	print2("You are given a horse and a blessed spear. Saat hevosen ja siunatun keihään.");
+	print1("You are now a Gallant in the Order.");
+	print2("You are given a horse and a blessed spear.");
 	morewait();
 	Player.rank[ORDER] = GALLANT;
 	Player.guildxp[ORDER] = 1;
@@ -1006,41 +1006,50 @@ void l_order(void)
       }
     }
   } else {
-      print1("'Welcome back, Paladin. Tervetuloa takaisin, Temppeliritari.'");
+      print1("'Welcome back, Paladin.'");
+      print2("'Tervetuloa takaisin, Temppeliritari.'");
+      morewait();
       if (!gamestatusp(MOUNTED)) {
-	print2("You are given a new steed. Saat uuden ratsun.");
+	print2("You are given a new steed.");
 	setgamestatus(MOUNTED);
       }
       morewait();
       clearmsg();
       if ((Player.hp < Player.maxhp) || (Player.status[DISEASED]) ||
 	(Player.status[POISONED]))
-	print1("Your wounds are treated by a medic. Lääkintämies parantaa vammasi.");
+	{
+	  print1("Your wounds are treated by a medic.");
+	  print2("Lääkintämies hoitaa vammasi.");
+        }
       cleanse(0);
       Player.hp = Player.maxhp;
+      dataprint(); //LKF 2021
+      morewait();
+      clearmsg();
       if ( Player.food <= 40 )
       {
         Player.food = 40;
-        print2("You get a hot meal from the refectory. Saat kuuman aterian kanttiinista.");
+        print1("You get a hot meal from the refectory.");
+	print2("Saat kuuman aterian kanttiinista.");
+	dataprint();
       }
-      dataprint();
       morewait();
       clearmsg();
       if (Player.rank[ORDER]==PALADIN) {
 	if (Player.level <= Justiciarlevel)
-	  print2("You are not experienced enough to advance. Et ole tarpeeksi kokenut edetäksesi.");
+	  print2("You are not experienced enough to advance.");
 	else if (Player.alignment < 300)
-	  print2("You are not sufficiently Lawful as yet to advance. Et ole tarpeeksi Laillinen edetäksesi.");
-	else print2("You must give the Star Gem to the LawBringer. Sinun pitää antaa Tähtijalokivi LainTuojalle.");
+	  print2("You are not sufficiently Lawful as yet to advance.");
+	else print2("You must give the Star Gem to the LawBringer.");
       }
       else if (Player.rank[ORDER]==CHEVALIER) {
 	if (Player.guildxp[ORDER] < 4000)
-	  print2("You are not experienced enough to advance. Et olet tarpeeksi kokenut edetäksesi.");
+	  print2("You are not experienced enough to advance.");
 	else if (Player.alignment < 200)
-	  print2("You are not sufficiently Lawful as yet to advance. Et ole tarpeeksi Laillinen edetäksesi.");
+	  print2("You are not sufficiently Lawful as yet to advance.");
 	else {
-	  print1("You are made a Paladin of the Order! Sinusta tehdään Järjestön Paladiini!");
-	  print2("You learn the Spell of Heroism and get Mithril Plate! Opit Sankaruus-loitsun ja saat Mithril-panssarin!");
+	  print1("You are made a Paladin of the Order!");
+	  print2("You learn the Spell of Heroism and get Mithril Plate!");
 	  morewait();
 	  newitem = ((pob) checkmalloc(sizeof(objtype)));
 	  *newitem = Objects[OB_MITHRIL_PLATE]; /* mithril plate armor */
