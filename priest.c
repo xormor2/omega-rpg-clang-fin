@@ -18,10 +18,10 @@ void l_altar(void)
       print1("Tässä karkeassa alttarissa ei ole merkintöjä.");
       break;
     case ODIN:
-      print1("Tähän graniittialttariin on kaiverrettu Ukonvasara.");
+      print1("Tähän graniittialttariin on kaiverrettu Ukon Vasarakirves.");
       break;
     case SET:
-      print1("This sandstone altar has a black hand drawn on it.");
+      print1("Tähän hiekkakivialttariin on kaiverrettu musta käsi.");
       break;
     case HECATE:
       print1("This silver altar is inlaid with a black crescent moon.");
