@@ -400,10 +400,10 @@ int main(int argc, char *argv[])
   }
 
   /* game restore attempts to restore game if there is an argument */
-  if (continuing) 
+  if (continuing)
   {
      game_restore(SaveFileName);
-     mprint("Your adventure continues....");
+     mprint("Seikkailusi jatkuu....");
   }
   else
   {
@@ -422,7 +422,7 @@ int main(int argc, char *argv[])
   if (!continuing)
   {
     init_world();  /* RM: 04-19-2000 loading patch */
-    mprint("'?' antaa apua tai komentolistan, 'Q' poistuu pelistä.");
+    mprint("'?' for help or commandlist, 'Q' to quit.");
   }
 
   timeprint();
@@ -431,7 +431,7 @@ int main(int argc, char *argv[])
     showroom(Level->site[Player.x][Player.y].roomnumber);
   else
     terrain_check(FALSE);
-  
+
   if (optionp(SHOW_COLOUR))
     colour_on();
   else
@@ -456,7 +456,7 @@ void signalexit(int ignored)
   mprint("Yikes!");
   morewait();
   mprint("Sorry, caught a core-dump signal.");
-#if 0 
+#if 0
   /* DAG used to prompt... space-bar holding through messages could cause
    * failure to save.  Now always just force through with signalsave() */
   mprint("Want to try and save the game?");
@@ -486,14 +486,14 @@ void init_world(void)
   for (env = 0; env <= E_MAX; env++)
     level_seed[env] = RANDFUNCTION();
   load_country();
-  for(i=0;i<NUMCITYSITES;i++) 
+  for(i=0;i<NUMCITYSITES;i++)
     CitySiteList[i][0] = FALSE;
   load_city(TRUE);
   Level = City;
   Current_Environment = E_CITY;
   setPlayerXY(62, 20);
-  //print1("You pass through the massive gates of Rampart, the city.");
-  print1("Menet Linnavuori-kaupungin valtavista porteista sisään.");
+  print1("You pass through the massive gates of Rampart, the city.");
+  print2("Tulet Varustuskaupungin valtavista porteista sisään.");
   screencheck(Player.x, Player.y);
 }
 
