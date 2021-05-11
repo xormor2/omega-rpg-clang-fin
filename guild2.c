@@ -14,9 +14,9 @@ void l_thieves_guild(void)
   int fee,count,i,number,done=FALSE,dues=1000;
   char c,action;
   pob lockpick;
-  print1("You have penetrated to the Lair of the Thieves' Guild.");
+  print1("Olet tunkeutunut varkaiden killan kerhotiloihin.");
   if (! nighttime()) 
-    print2("There aren't any thieves around in the daytime.");
+    print2("Päiväsaikaan ei ole varkaita liikkeellä.");
   else {
     if ((Player.rank[THIEVES]==TMASTER) &&
 	(Player.level > Shadowlordlevel) &&
@@ -33,7 +33,7 @@ void l_thieves_guild(void)
       Shadowlordbehavior = fixnpc(4);
       save_hiscore_npc(7);
       clearmsg();
-      print1("You learn the Spell of Shadowform.");
+      print1("Opit varjotaian.");
       Spells[S_SHADOWFORM].known = TRUE;
       morewait();
       clearmsg();
@@ -46,7 +46,7 @@ void l_thieves_guild(void)
     while (! done) {
       menuclear();
       if (Player.rank[THIEVES] == 0)
-	menuprint("a: Join the Thieves' Guild.\n");
+	menuprint("a: Liity varkaiden kiltaan.\n");
       else
 	menuprint("b: Raise your Guild rank.\n");
       menuprint("c: Get an item identified.\n");
@@ -1007,32 +1007,22 @@ void l_order(void)
     }
   } else {
       print1("'Welcome back, Paladin.'");
-      print2("'Tervetuloa takaisin, Temppeliritari.'");
-      morewait();
       if (!gamestatusp(MOUNTED)) {
 	print2("You are given a new steed.");
 	setgamestatus(MOUNTED);
-      morewait();
       }
-      //morewait(); //Commented out by LKF 2021
+      morewait();
       clearmsg();
       if ((Player.hp < Player.maxhp) || (Player.status[DISEASED]) ||
 	(Player.status[POISONED]))
-	{
-	  print1("Your wounds are treated by a medic.");
-	  print2("Lääkintämies hoitaa vammasi.");
-        }
+	print1("Your wounds are treated by a medic.");
       cleanse(0);
       Player.hp = Player.maxhp;
-      dataprint(); //LKF 2021
-      morewait();
-      clearmsg();
+      dataprint();	//LKF 2021
       if ( Player.food <= 40 )
       {
         Player.food = 40;
-        print1("You get a hot meal from the refectory.");
-	print2("Saat kuuman aterian kanttiinista.");
-	dataprint();
+        print2("You get a hot meal from the refectory.");
       }
       morewait();
       clearmsg();
