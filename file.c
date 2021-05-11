@@ -151,11 +151,10 @@ void showmotd(void)
 }
 
 
-void lock_score_file(void) // I commented out the whole functionality of this function "lock_score_file()" because I want
-			   // to write high scores even with self-named characters. ---L.K.F. 2019---
+void lock_score_file(void)
 {
 /*
-  #ifndef MSDOS
+#ifndef MSDOS
   int lock;
   int thispid;
   int lastpid = 0;
@@ -207,6 +206,7 @@ void lock_score_file(void) // I commented out the whole functionality of this fu
 */
 }
 
+
 void unlock_score_file(void)
 {
 #ifndef MSDOS
@@ -221,7 +221,7 @@ void showscores(void)
   FILE *fd;
   int i;
 
-  lock_score_file();
+  //lock_score_file(); //LKF2021
   strcpy(Str1,Omegavar);
   strcat(Str1,"omega.hi");
   fd = checkfopen(Str1,"rb");
@@ -303,9 +303,10 @@ void save_hiscore_npc(int npc)
   char buffer[80];
   int i;
 
-  //if (gamestatusp(CHEATED))
+  // if (gamestatusp(CHEATED))
   //    return;
-  unlock_score_file();		//I am trying to make high score get written for self-named characters, too! -L.K.F. 2019
+  // lock_score_file(); //LKF2021
+  // unlock_score_file();  //LKF2021
   strcpy(Str1,Omegavar);
   strcat(Str1,"omega.hi");
   infile = checkfopen(Str1,"rb");
@@ -317,7 +318,7 @@ void save_hiscore_npc(int npc)
 #endif
   outfile = checkfopen(Str2,"wb");
   for (i = 0; i < 17; i++) {
-    if (npc == i || npc == 0) {
+    if (npc == i) {
       switch (i) {
 	case 0:
 	  fprintf(outfile,"%s\n%s\n%ld %d %d\n",Hiscorer, Hidescrip, Hiscore,
@@ -398,7 +399,7 @@ void checkhigh(char *descrip, int behavior)
 
   if (FixedPoints > 0) points = FixedPoints;
   else points = calc_points();
-  //if (!gamestatusp(CHEATED)) {
+  if (!gamestatusp(CHEATED)) {
     if (Hiscore < points) {
       strcpy(Hiscorer, Player.name);
       strcpy(Hidescrip, descrip);
@@ -408,7 +409,7 @@ void checkhigh(char *descrip, int behavior)
       save_hiscore_npc(0);
       mprint("Yow! A new high score!");
       morewait();
-  //}
+    }
     if (Player.alignment < Chaos) {
       strcpy(Chaoslord, Player.name);
       Chaoslordlevel = Player.level;
