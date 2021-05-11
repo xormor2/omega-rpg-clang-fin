@@ -15,13 +15,13 @@ void l_altar(void)
 
   switch(deity) {
     default:
-      print1("Tässä karkeassa alttarissa ei ole merkintöjä.");
+      print1("This rude altar has no markings.");
       break;
     case ODIN:
-      print1("Tähän graniittialttariin on kaiverrettu Ukon Vasarakirves.");
+      print1("Tähän alttariin on kaiverrettu vasarakirves.");
       break;
     case SET:
-      print1("Tähän hiekkakivialttariin on kaiverrettu musta käsi.");
+      print1("This sandstone altar has a black hand drawn on it.");
       break;
     case HECATE:
       print1("This silver altar is inlaid with a black crescent moon.");
@@ -255,11 +255,10 @@ int increase_priest_rank(int deity)
     break;
   case ODIN:
     if (Player.alignment > 0) {
-      print1("Ukko Ylijumala kuulee rukouksesi!");
+      print1("Odin hears your prayer!");
       print2(Priest[ODIN]);
-      nprint2(" henkilökohtaisesti siunaa sinut.");
-      morewait();
-      nprint2(" Olet nyt Ukon maallikkopalvoja.");
+      nprint2(" personally blesses you.");
+      nprint2(" You are now a lay devotee of Odin.");
       Player.patron = ODIN;
       Player.rank[PRIESTHOOD] = LAY;
       Player.guildxp[PRIESTHOOD] = 1;
@@ -267,15 +266,14 @@ int increase_priest_rank(int deity)
       /* morewait(); */
       learnclericalspells(ODIN,LAY);
     }
-    else print1("Ukko jättää sinut huomiotta.");
+    else print1("Odin ignores you.");
     break;
   case SET:
     if (Player.alignment < 0) {
-      print1("Paholainen kuulee rukouksesi!");
+      print1("Set hears your prayer!");
       print2(Priest[SET]);
-      nprint2(" henkilökohtaisesti siunaa sinut. ");
-      morewait();
-      nprint2(" Olet nyt Paholaisen maallikkopalvoja.");
+      nprint2(" personally blesses you. ");
+      nprint2(" You are now a lay devotee of Set.");
       Player.patron = SET;
       Player.rank[PRIESTHOOD] = LAY;
       Player.guildxp[PRIESTHOOD] = 1;
@@ -283,7 +281,7 @@ int increase_priest_rank(int deity)
       /* morewait(); */
       learnclericalspells(SET,LAY);
     }
-    else print1("Paholainen jättää sinut huomiotta.");
+    else print1("Set ignores you.");
     break;
   case ATHENA:
     if (Player.alignment > 0) {
@@ -401,10 +399,10 @@ void answer_prayer(void)
 {
   clearmsg();
   switch(random_range(12)) {
-  case 0: print1("Koet ilmestyksen!"); break;
-  case 1: print1("Tunnet itsesi uskovaiseksi."); break;
-  case 2: print1("Pyhyyden tunne tulee yllesi."); break;
-  default: print1("Mitään erikoista ei tunnu tapahtuvan."); break;
+  case 0: print1("You have a revelation!"); break;
+  case 1: print1("You feel pious."); break;
+  case 2: print1("A feeling of sanctity comes over you."); break;
+  default: print1("Nothing unusual seems to happen."); break;
   }
 }
 
