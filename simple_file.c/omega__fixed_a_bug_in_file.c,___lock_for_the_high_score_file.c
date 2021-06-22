@@ -10,6 +10,7 @@ void save_hiscore_npc(int npc)
   if (gamestatusp(CHEATED))
       return;
   //lock_score_file(); lock that prevented the high score from being saved, I commented it out :-) 8.6.2018: L.K.F.
+  unlock_score_file(); //unlock the score file, remember to set sudo chown root.games /var/games/omega -22.6.2021 L.K.F.
   strcpy(Str1,Omegavar);
   strcat(Str1,"omega.hi");
   infile = checkfopen(Str1,"rb");
